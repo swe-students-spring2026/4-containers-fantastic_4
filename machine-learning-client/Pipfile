@@ -9,7 +9,8 @@ requests = "*"
 python-dotenv = "*"
 
 [dev-packages]
-pylint = ">=3.0"
+pylint = "*"
+tomli = "*"
 black = "*"
 pytest = "*"
 pytest-cov = "*"
