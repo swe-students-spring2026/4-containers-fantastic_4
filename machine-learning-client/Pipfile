@@ -9,7 +9,7 @@ requests = "*"
 python-dotenv = "*"
 
 [dev-packages]
-pylint = "*"
+pylint = ">=3.0"
 black = "*"
 pytest = "*"
 pytest-cov = "*"
