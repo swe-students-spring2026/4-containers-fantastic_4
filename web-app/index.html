@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LectureNotes - Speech to Text Note Taking</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">Speech to Text</h1>
+                <p class="tagline">Convert your lectures into notes</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Recording Section -->
+            <section class="recording-section">
+                <div class="recording-card">
+                    <div class="recording-header">
+                        <h2>Live Transcription</h2>
+                        <!-- <span class="status-indicator" id="statusIndicator">Ready for Recording</span> -->
+                    </div>
+
+                    <!-- Microphone Controls -->
+                    <div class="controls">
+                        <button class="btn btn-primary" id="startBtn" onclick="startRecording()">
+                            <span class="btn-icon">🎤</span>
+                            Start Recording
+                        </button>
+                        <button class="btn btn-stop" id="stopBtn" onclick="stopRecording()" disabled>
+                            <span class="btn-icon">⏹</span>
+                            Stop Recording
+                        </button>
+                        <button class="btn btn-secondary" id="clearBtn" onclick="clearTranscription()">
+                            Clear
+                        </button>
+                    </div>
+
+                    <!-- Live Transcription Display -->
+                    <div class="transcription-display">
+                        <div class="transcription-label">Live Text:</div>
+                        <div class="transcription-text" id="transcriptionText">
+                            <p class="placeholder">Start recording to see transcription here...</p>
+                        </div>
+                    </div>
+
+                    <!-- Recording Timer -->
+                    <div class="recording-timer">
+                        <span id="recordingTime">00:00</span>
+                    </div>
+                </div>
+            </section>
+
+                <!-- AI Summary Section -->
+                <section class="summary-section">
+                <div class="summary-card">
+                    <div class="summary-header">
+                        <h2>AI Summary</h2>
+                        <button class="btn btn-small btn-primary" id="generateSummaryBtn" onclick="generateSummary()">
+                            Generate
+                        </button>
+                    </div>
+
+                    <!-- Summary Display -->
+                    <div class="summary-display" id="summaryDisplay">
+                        <div class="summary-placeholder">
+                            <p>Generate a summary to see AI insights here...</p>
+                            <p class="placeholder-hint">The AI will analyze your notes and create a concise summary.</p>
+                        </div>
+                    </div>
+
+                    <!-- Summary Loading State -->
+                    <div class="summary-loading" id="summaryLoading" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Generating summary...</p>
+                    </div>
+
+                    <!-- Summary Actions -->
+                    <div class="summary-actions" id="summaryActions" style="display: none;">
+                        <button class="btn btn-small btn-secondary" id="copySummaryBtn" onclick="copySummary()">
+                            Copy
+                        </button>
+                        <button class="btn btn-small btn-secondary" id="downloadSummaryBtn" onclick="downloadSummary()">
+                            Download
+                        </button>
+                        <button class="btn btn-small btn-clear" id="clearSummaryBtn" onclick="clearSummary()">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notes Section -->
+            <section class="notes-section">
+                <div class="notes-card">
+                    <div class="notes-header">
+                        <h2>Your Notes</h2>
+                        <div class="notes-actions">
+                            <button class="btn btn-small btn-secondary" id="exportBtn" onclick="exportNotes()">
+                                Export
+                            </button>
+                            <button class="btn btn-small btn-stop" id="deleteAllBtn" onclick="deleteAllNotes()">
+                                Delete All
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Notes List -->
+                    <div class="notes-list" id="notesList">
+                        <div class="empty-state">
+                            <p>No notes yet.</p>
+                            <p class="empty-state-subtitle" >Start recording to create your first note!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- script? later maybe would be: -->
+    <!-- <script src="js/app.js"></script> -->
+</body>
+</html>
