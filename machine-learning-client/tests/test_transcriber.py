@@ -1,6 +1,7 @@
 """Tests for transcriber.py"""
 
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 import pytest
 import transcriber
 
@@ -10,6 +11,24 @@ def make_mock_response(json_data):
     mock = MagicMock()
     mock.json.return_value = json_data
     return mock
+
+
+def test_build_transcript_payload_uses_universal_3_pro():
+    """Test that the AssemblyAI payload uses the expected model."""
+    payload = transcriber.build_transcript_payload("https://fake-url.com")
+
+    assert payload == {
+        "audio_url": "https://fake-url.com",
+        "language_detection": True,
+        "speech_models": ["universal-3-pro"],
+    }
+
+
+def test_build_polling_endpoint_uses_transcript_id():
+    """Test that the polling endpoint is built from the transcript ID."""
+    endpoint = transcriber.build_polling_endpoint("abc123")
+
+    assert endpoint == "https://api.assemblyai.com/v2/transcript/abc123"
 
 
 @patch("transcriber.requests.get")

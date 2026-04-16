@@ -7,6 +7,7 @@ Build a containerized app that uses machine learning. See [instructions](./instr
 # Team Members
 
 [Eddy Yue](https://github.com/YechengYueEddy)
+[Robin Chen](https://github.com/localhost433)
 
 # Machine Learning Client Setup
 
