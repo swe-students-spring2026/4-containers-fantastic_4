@@ -1,0 +1,539 @@
+/* root */
+:root {
+    --primary-color: black;
+    --primary-dark: grey;
+    --primary-light: #dbeafe;
+    --stop-color: grey;
+    --stop-dark: darkgrey;
+    --secondary-color: rgb(20, 141, 172);
+    --success-color: #10b981;
+    --text-dark: #1f2937;
+    --text-light: #6b7280;
+    --border-color: #e5e7eb;
+    --bg-light: #f9fafb;
+    --bg-white: #ffffff;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+    --font-family: Arial, sans-serif;
+}
+
+/* global */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 90vw;
+    max-height: 80vh;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* header */
+.header {
+    color: black;
+    padding: 40px 0;
+    text-align: center;
+    /* background-color: black;
+    box-shadow: var(--shadow-md); */
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.header-content {
+    animation: slideDown 0.6s ease;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    font-weight: 300;
+}
+
+/* main */
+.main-content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Recording Section */
+.recording-section {
+    grid-column: 1;
+}
+
+.recording-card {
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    height: 100%;
+}
+
+.recording-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.recording-header h2 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+}
+
+/* .status-indicator {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: var(--success-color);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+} */
+
+.status-indicator.recording {
+    background-color: var(--stop-color);
+}
+
+/* controls */
+.controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font-family);
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: var(--primary-dark);
+}
+
+.btn-stop {
+    background-color: var(--stop-color);
+    color: white;
+}
+
+.btn-stop:hover:not(:disabled) {
+    background-color: var(--stop-dark);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background-color: #475569;
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+/* transcription display */
+.transcription-display {
+    margin-bottom: 20px;
+}
+
+.transcription-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.transcription-text {
+    background-color: var(--bg-light);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    min-height: 150px;
+    max-height: 300px;
+    overflow-y: auto;
+    line-height: 1.8;
+    color: var(--text-dark);
+    font-size: 1.05rem;
+}
+
+.transcription-text.active {
+    border-color: var(--primary-color);
+    background-color: var(--primary-light);
+}
+
+.transcription-text .placeholder {
+    color: var(--text-light);
+    font-style: italic;
+}
+
+/* recording timer */
+.recording-timer {
+    text-align: center;
+    padding: 15px;
+    background-color: var(--bg-light);
+    border-radius: var(--border-radius);
+    display: none;
+}
+
+.recording-timer.active {
+    display: block;
+}
+
+#recordingTime {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--stop-color);
+    font-family: 'Courier New', monospace;
+}
+
+/* Notes Section */
+.notes-section {
+    grid-column: 3;
+}
+
+.notes-card {
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.notes-header h2 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+}
+
+.notes-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* notes list */
+.notes-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.note-item {
+    background-color: var(--bg-light);
+    border-left: 4px solid var(--primary-color);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    animation: slideIn 0.3s ease;
+    transition: var(--transition);
+}
+
+.note-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.note-time {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.note-delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--stop-color);
+    font-size: 1.1rem;
+    transition: var(--transition);
+    padding: 4px;
+}
+
+.note-delete-btn:hover {
+    transform: scale(1.2);
+}
+
+.note-text {
+    color: var(--text-dark);
+    line-height: 1.6;
+    word-break: break-word;
+    font-size: 0.95rem;
+}
+
+.empty-state {
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    text-align: center;
+    color: var(--text-light); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    color: var(--text-light);
+    min-height: 200px;
+}
+
+.empty-state p {
+    font-style: regular;
+}
+
+.empty-state-subtitle {
+    font-size: 0.85rem;
+    margin-top: 8px;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Summary Section */
+.summary-section {
+    grid-column: 2;
+}
+
+.summary-card {
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.summary-header h2 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+}
+
+/* summary display */
+.summary-display {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.summary-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    color: var(--text-light);
+    min-height: 200px;
+}
+
+.placeholder-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    opacity: 0.6;
+}
+
+.placeholder-hint {
+    font-size: 0.85rem;
+    margin-top: 8px;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.summary-content {
+    background-color: var(--primary-light);
+    border-left: 4px solid var(--primary-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    line-height: 1.8;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    animation: slideIn 0.3s ease;
+}
+
+.summary-content h3 {
+    color: var(--primary-dark);
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+.summary-content ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.summary-content li {
+    margin-bottom: 8px;
+    color: var(--text-dark);
+}
+
+/* summary - loading state (maybe add some animations later for this) */
+.summary-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    gap: 15px;
+}
+
+/* summary actions */
+.summary-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.summary-actions .btn {
+    flex: 1;
+    min-width: 100px;
+}
+
+/* animations - basic, change? tbd*/
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-light);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
