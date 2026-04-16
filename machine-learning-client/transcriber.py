@@ -9,11 +9,6 @@ BASE_URL = "https://api.assemblyai.com"
 MODEL_NAME = "universal-3-pro"
 
 
-def capture_microphone_audio():
-    """Placeholder for live microphone capture."""
-    raise NotImplementedError("Microphone capture is not implemented yet")
-
-
 def build_headers():
     """Build the HTTP headers for AssemblyAI requests."""
     api_key = os.environ.get("ASSEMBLYAI_API_KEY")
@@ -35,7 +30,7 @@ def build_polling_endpoint(transcript_id):
 
 
 def transcribe_audio(audio_bytes):
-    """Upload audio bytes to AssemblyAI and return the transcript text."""
+    """Transcribe audio bytes provided by another subsystem (for example, the web app)."""
     headers = build_headers()
     upload_response = requests.post(
         BASE_URL + "/v2/upload", headers=headers, data=audio_bytes, timeout=30

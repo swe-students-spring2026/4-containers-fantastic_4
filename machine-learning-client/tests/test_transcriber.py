@@ -31,14 +31,6 @@ def test_build_polling_endpoint_uses_transcript_id():
     assert endpoint == "https://api.assemblyai.com/v2/transcript/abc123"
 
 
-def test_capture_microphone_audio_is_not_implemented():
-    """Test that the microphone capture stub fails explicitly."""
-    with pytest.raises(
-        NotImplementedError, match="Microphone capture is not implemented yet"
-    ):
-        transcriber.capture_microphone_audio()
-
-
 @patch("transcriber.requests.get")
 @patch("transcriber.requests.post")
 def test_transcriber_completed(mock_post, mock_get):
