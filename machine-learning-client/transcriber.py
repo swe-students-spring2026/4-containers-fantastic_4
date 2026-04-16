@@ -9,6 +9,11 @@ BASE_URL = "https://api.assemblyai.com"
 MODEL_NAME = "universal-3-pro"
 
 
+def capture_microphone_audio():
+    """Placeholder for live microphone capture."""
+    raise NotImplementedError("Microphone capture is not implemented yet")
+
+
 def build_headers():
     """Build the HTTP headers for AssemblyAI requests."""
     api_key = os.environ.get("ASSEMBLYAI_API_KEY")
@@ -22,6 +27,11 @@ def build_transcript_payload(audio_url):
         "language_detection": True,
         "speech_models": [MODEL_NAME],
     }
+
+
+def build_polling_endpoint(transcript_id):
+    """Build the transcript polling URL."""
+    return BASE_URL + "/v2/transcript/" + transcript_id
 
 
 def transcribe_audio(audio_bytes):
@@ -38,7 +48,7 @@ def transcribe_audio(audio_bytes):
     response = requests.post(url, json=data, headers=headers, timeout=30)
 
     transcript_id = response.json()["id"]
-    polling_endpoint = BASE_URL + "/v2/transcript/" + transcript_id
+    polling_endpoint = build_polling_endpoint(transcript_id)
 
     while True:
         transcription_result = requests.get(
