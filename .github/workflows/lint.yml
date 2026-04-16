@@ -21,7 +21,6 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install pipenv
           pipenv sync --dev --python $(which python)
-          pipenv shell --fancy --python $(which python)
       - name: Lint with pylint
         if: ${{ hashFiles(format('{0}/**/*.py', matrix.subdir)) != '' }}
         # you may set pylint to ignore any files or dependencies that make no sense to lint
@@ -34,3 +33,8 @@ jobs:
         run: |
           cd ${{ matrix.subdir }}
           pipenv run black --diff --check .
+      - name: Run tests with coverage
+        if: ${{ hashFiles(format('{0}/**/*.py', matrix.subdir)) != '' }}
+        run: |
+          cd ${{ matrix.subdir }}
+          pipenv run pytest --cov=. --cov-report=term-missing tests/
