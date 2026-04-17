@@ -1,5 +1,8 @@
 """Web app for recording and displaying class notes."""
 
+
+from datetime import datetime
+
 from flask import Flask, render_template, redirect, url_for, request, flash, jsonify
 from flask_login import (
     LoginManager,
@@ -12,7 +15,6 @@ from flask_login import (
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
 import requests
 
 app = Flask(__name__)
@@ -34,6 +36,7 @@ login_manager.login_view = "login"
 
 
 class User(UserMixin):
+    """Represents an authenticated user."""
     def __init__(self, user_id, username):
         self.id = user_id
         self.username = username
@@ -42,6 +45,7 @@ class User(UserMixin):
 # auth routes
 @login_manager.user_loader
 def load_user(user_id):
+    """Load a user from the database by their ID."""
     user_data = users.find_one({"_id": ObjectId(user_id)})
     if not user_data:
         return None
@@ -132,7 +136,7 @@ def index():
 
             return jsonify(ml_data), ml_response.status_code
 
-        except Exception as e:
+        except requests.exceptions.RequestException as e:
             return (
                 jsonify({"error": f"Error communicating with ML client: {str(e)}"}),
                 500,
@@ -146,6 +150,7 @@ def index():
 @app.route("/summarize/<note_id>", methods=["POST"])
 @login_required
 def summarize(note_id):
+    """Generate an AI summary for an existing note."""
 
     note = class_notes.find_one({"_id": ObjectId(note_id), "user_id": current_user.id})
 
