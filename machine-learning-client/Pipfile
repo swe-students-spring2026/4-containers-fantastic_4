@@ -7,6 +7,7 @@ name = "pypi"
 pymongo = "*"
 requests = "*"
 python-dotenv = "*"
+google-genai = "*"
 
 [dev-packages]
 pylint = "*"
