@@ -158,7 +158,7 @@ def summarize(note_id):
         return jsonify({"error": "Note not found"}), 404
 
     _transcript = note.get("transcript", "")
-    summary = " placeholder"
+    summary = "placeholder"
 
     class_notes.update_one({"_id": ObjectId(note_id)}, {"$set": {"summary": summary}})
 
