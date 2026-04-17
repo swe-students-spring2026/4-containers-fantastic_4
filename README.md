@@ -2,14 +2,19 @@
 
 # Containerized App Exercise
 
-Build a containerized app that uses machine learning. See [instructions](./instructions.md) for details.
+## App Description
 
-# Team Members
+A web application that coverts audio recordings into written class notes, helping students capture and organize their lecture notes effortlessly.
+
+## Team Members
 
 [Eddy Yue](https://github.com/YechengYueEddy)
+
 [Robin Chen](https://github.com/localhost433)
 
-# Machine Learning Client Setup
+[Chenyu (Ginny) Jiang](https://github.com/ginny1536)
+
+## Machine Learning Client Setup
 
 1. Go to [assemblyai.com](https://www.assemblyai.com/) and log in with your Google account
 2. Once on the dashboard, click **API Keys** in the left sidebar
