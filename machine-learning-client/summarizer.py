@@ -3,9 +3,7 @@
 from google import genai
 
 MODEL_NAME = "gemini-3-flash-preview"
-SUMMARY_PROMPT = (
-    "Summarize the following transcript into concise bullet points, highlighting the key topics and takeaways:\n"
-)
+SUMMARY_PROMPT = "Summarize the following transcript into concise bullet points, highlighting the key topics and takeaways:\n"
 
 
 def build_prompt(transcript):
