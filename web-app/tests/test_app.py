@@ -67,3 +67,4 @@ def test_audio_upload_flow(mock_ml_post):
 
         assert response.status_code == 200
         assert response.get_json()['transcript'] == "this is a test transcript"
+        
