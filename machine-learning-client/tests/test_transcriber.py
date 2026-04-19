@@ -1,14 +1,14 @@
 """Tests for transcriber.py"""
 
 import os
-from dotenv import load_dotenv
-load_dotenv()
-
 from unittest.mock import MagicMock, patch
 
 import pytest
+from dotenv import load_dotenv
+
 import transcriber
 
+load_dotenv()
 
 def make_mock_response(json_data):
     """Return a fake HTTP response."""
@@ -91,3 +91,4 @@ def test_api_key_loaded():
     """Test that the AssemblyAI API key is loaded from environment."""
     api_key = os.environ.get("ASSEMBLYAI_API_KEY")
     assert api_key is not None, "ASSEMBLYAI_API_KEY is not set in .env"
+    
