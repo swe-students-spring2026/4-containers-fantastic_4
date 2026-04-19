@@ -1,8 +1,15 @@
 """tests for webapp flask routes"""
 
+import os
+import sys
+from pathlib import Path
 from unittest.mock import patch, MagicMock
 from io import BytesIO
 import mongomock
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+os.environ.setdefault("SECRET_KEY", "test-secret")
 
 with patch("pymongo.MongoClient", mongomock.MongoClient):
     from app import app
@@ -52,6 +59,15 @@ def test_unauthorized_redirect():
 
     assert "login" in response.request.path
     assert b"Login" in response.data
+
+
+def test_favicon_route_no_404():
+    """Check browser favicon requests do not return 404."""
+    client, _, _ = get_test_context()
+
+    response = client.get("/favicon.ico")
+
+    assert response.status_code == 204
 
 
 @patch("requests.post")
