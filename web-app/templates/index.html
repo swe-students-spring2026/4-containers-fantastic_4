@@ -15,6 +15,10 @@
                 <h1 class="logo">Speech to Text</h1>
                 <p class="tagline">Convert your lectures into notes</p>
             </div>
+            <div class="user-controls">
+                <span class="user-info">Logged in as: <strong>{{ current_user.username }}</strong></span>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
         </header>
 
         <!-- Main Content -->
