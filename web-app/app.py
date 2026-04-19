@@ -1,6 +1,5 @@
 """Web app for recording and displaying class notes."""
 
-from datetime import datetime
 import os
 
 from flask import Flask, render_template, redirect, url_for, request, flash, jsonify
@@ -88,7 +87,7 @@ def register():
             flash("That username is already taken")
             return redirect(url_for("register"))
 
-        hashed = generate_password_hash(password, method='pbkdf2:sha256')
+        hashed = generate_password_hash(password, method="pbkdf2:sha256")
 
         users.insert_one({"username": username, "password": hashed})
 
