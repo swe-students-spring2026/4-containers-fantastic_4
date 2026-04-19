@@ -1,6 +1,5 @@
 """Web app for recording and displaying class notes."""
 
-
 from datetime import datetime
 
 from flask import Flask, render_template, redirect, url_for, request, flash, jsonify
@@ -37,6 +36,7 @@ login_manager.login_view = "login"
 
 class User(UserMixin):
     """Represents an authenticated user."""
+
     def __init__(self, user_id, username):
         self.id = user_id
         self.username = username
@@ -81,7 +81,7 @@ def register():
             flash("That username is already taken")
             return redirect(url_for("register"))
 
-        hashed = generate_password_hash(password)
+        hashed = generate_password_hash(password, method='pbkdf2:sha256')
 
         users.insert_one({"username": username, "password": hashed})
 
@@ -157,12 +157,12 @@ def summarize(note_id):
     if not note:
         return jsonify({"error": "Note not found"}), 404
 
-    # this transcript will be sent to summarization API
-    _transcript = note.get("transcript", "")
-
-    # TODO:need to be implemented after AI summary tool is implemented
-    summary = " placeholder"
+    summary = "placeholder"
 
     class_notes.update_one({"_id": ObjectId(note_id)}, {"$set": {"summary": summary}})
 
     return jsonify({"summary": summary})
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=3000, debug=True)

@@ -377,6 +377,58 @@ body {
     opacity: 0.8;
 }
 
+/* notes controls */
+.notes-controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 150px;
+    padding: 10px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    font-family: var(--font-family);
+    transition: var(--transition);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.filter-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.sort-select {
+    padding: 10px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    font-family: var(--font-family);
+    background-color: var(--bg-white);
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.sort-select:hover {
+    border-color: var(--primary-color);
+}
+
 /* Summary Section */
 .summary-section {
     grid-column: 2;
@@ -487,7 +539,7 @@ body {
     min-width: 100px;
 }
 
-/* animations - basic, change? tbd*/
+/* animations */
 @keyframes slideDown {
     from {
         opacity: 0;
