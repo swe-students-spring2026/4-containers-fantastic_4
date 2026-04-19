@@ -20,7 +20,7 @@ def build_transcript_payload(audio_url):
     return {
         "audio_url": audio_url,
         "language_detection": True,
-        "speech_models": [MODEL_NAME],
+        "speech_models": [MODEL_NAME, "universal-2"],
     }
 
 

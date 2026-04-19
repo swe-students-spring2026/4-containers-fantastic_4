@@ -14,13 +14,13 @@ def make_mock_response(json_data):
 
 
 def test_build_transcript_payload_uses_universal_3_pro():
-    """Test that the AssemblyAI payload uses the expected model."""
+    """Test that the AssemblyAI payload uses the expected models."""
     payload = transcriber.build_transcript_payload("https://fake-url.com")
 
     assert payload == {
         "audio_url": "https://fake-url.com",
         "language_detection": True,
-        "speech_models": ["universal-3-pro"],
+        "speech_models": ["universal-3-pro", "universal-2"],
     }
 
 

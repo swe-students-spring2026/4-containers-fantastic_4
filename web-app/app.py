@@ -146,3 +146,7 @@ def index():
     # send all past ml results
     notes = list(class_notes.find({"user_id": current_user.id}).sort("timestamp", -1))
     return render_template("index.html", notes=notes)
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)

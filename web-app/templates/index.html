@@ -117,10 +117,22 @@
 
                     <!-- Notes List -->
                     <div class="notes-list" id="notesList">
+                        {% if notes %}
+                            {% for note in notes %}
+                            <div class="note-card">
+                                <div class="note-meta">{{ note.timestamp.strftime('%Y-%m-%d %H:%M') }}</div>
+                                <h3>Transcript</h3>
+                                <p>{{ note.transcript }}</p>
+                                <h3>Summary</h3>
+                                <p>{{ note.summary }}</p>
+                            </div>
+                            {% endfor %}
+                        {% else %}
                         <div class="empty-state">
                             <p>No notes yet.</p>
-                            <p class="empty-state-subtitle" >Start recording to create your first note!</p>
+                            <p class="empty-state-subtitle">Start recording to create your first note!</p>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </section>
