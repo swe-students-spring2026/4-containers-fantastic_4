@@ -10,6 +10,7 @@ import transcriber
 
 load_dotenv()
 
+
 def make_mock_response(json_data):
     """Return a fake HTTP response."""
     mock = MagicMock()
@@ -87,8 +88,8 @@ def test_transcriber_processing(mock_post, mock_get, mock_sleep):
     assert result == "final transcript"
     assert mock_sleep.call_count == 1
 
+
 def test_api_key_loaded():
     """Test that the AssemblyAI API key is loaded from environment."""
     api_key = os.environ.get("ASSEMBLYAI_API_KEY")
     assert api_key is not None, "ASSEMBLYAI_API_KEY is not set in .env"
-    
