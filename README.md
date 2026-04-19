@@ -54,13 +54,13 @@ docker-compose up --build
 ```
 
 This starts all three containers:
-- **Web App** at `http://localhost:5000`
+- **Web App** at `http://localhost:5002`
 - **ML Client** at `http://localhost:5001`
 - **MongoDB** at `localhost:27017`
 
 ### Step 4: Use the App
 
-Open `http://localhost:5000` in your browser, register an account, and start recording lectures.
+Open `http://localhost:5002` in your browser, register an account, and start recording lectures.
 
 ### Stopping the App
 

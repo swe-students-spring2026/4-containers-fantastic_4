@@ -196,37 +196,50 @@ function saveNotes() {
     localStorage.setItem('lectureNotes', JSON.stringify(notes));
 }
 
-function deleteNote(noteId) {
-    notes = notes.filter(note => note.id !== noteId);
-    saveNotes();
-    renderNotes();
+async function deleteNote(noteId) {
+    const response = await fetch(`/notes/delete/${noteId}`, { method: 'POST' });
+    if (response.ok) {
+        window.location.reload();
+    } else {
+        alert('Failed to delete note.');
+    }
 }
 
-function deleteAllNotes() {
-    if (notes.length === 0) {
+async function deleteAllNotes() {
+    const noteCards = document.querySelectorAll('.note-card');
+    if (noteCards.length === 0) {
         alert('No notes to delete!');
         return;
     }
-    
+
     if (confirm('Are you sure you want to delete all notes? This cannot be undone.')) {
-        notes = [];
-        saveNotes();
-        renderNotes();
+        const response = await fetch('/notes/delete-all', { method: 'POST' });
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            alert('Failed to delete notes.');
+        }
     }
 }
 
 function exportNotes() {
-    if (notes.length === 0) {
+    const noteCards = document.querySelectorAll('.note-card');
+    if (noteCards.length === 0) {
         alert('No notes to export!');
         return;
     }
-    
-    const content = notes.map(note => `[${note.timestamp}]\n${note.text}\n`).join('\n---\n\n');
+
+    const content = Array.from(noteCards).map(card => {
+        const time = card.querySelector('.note-meta')?.textContent || '';
+        const transcript = card.querySelectorAll('p')[0]?.textContent || '';
+        const summary = card.querySelectorAll('p')[1]?.textContent || '';
+        return `[${time}]\nTranscript: ${transcript}\nSummary: ${summary}`;
+    }).join('\n---\n\n');
+
     const element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
     element.setAttribute('download', `lecture-notes-${new Date().toISOString().split('T')[0]}.txt`);
     element.style.display = 'none';
-    
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
@@ -259,11 +272,10 @@ async function uploadAudio(blob) {
         });
 
         if (response.ok) {
-            const data = await response.json(); 
+            const data = await response.json();
             localStorage.setItem('currentNoteId', data.note_id);
             displayTranscript(data.transcript);
-            addNoteToList(data.transcript);
-            await generateSummaryAutomatic(data.note_id);
+            displaySummary(data.summary);
             window.location.reload();
         } else {
             transcriptionText.innerHTML = '<p class="error">Analysis failed.</p>';
@@ -387,6 +399,5 @@ function displaySummary(summary) {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadNotes();
-    renderNotes();
 });
 
