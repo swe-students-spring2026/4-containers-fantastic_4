@@ -14,7 +14,7 @@ A web application that coverts audio recordings into written class notes, helpin
 
 [Chenyu (Ginny) Jiang](https://github.com/ginny1536)
 
-[Carolina Lee] (https://github.com/CarolLee04)
+[Carolina Lee](https://github.com/CarolLee04)
 
 ## Machine Learning Client Setup
 
