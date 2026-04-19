@@ -1,6 +1,5 @@
 """Web app for recording and displaying class notes."""
 
-from datetime import datetime
 import os
 
 from flask import Flask, render_template, redirect, url_for, request, flash, jsonify

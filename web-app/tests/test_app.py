@@ -1,16 +1,11 @@
-"""Placeholder test."""
-
-
-def test_placeholder():
-    """Placeholder test."""
-    assert True
 """tests for webapp flask routes"""
 
 import os
 import sys
-from pathlib import Path
-from unittest.mock import patch, MagicMock
 from io import BytesIO
+from pathlib import Path
+from unittest.mock import MagicMock, patch
+
 import mongomock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
