@@ -3,6 +3,7 @@
 from unittest.mock import patch, MagicMock
 from io import BytesIO
 import mongomock
+
 with patch("pymongo.MongoClient", mongomock.MongoClient):
     from app import app
 
