@@ -16,6 +16,8 @@ A web application that coverts audio recordings into written class notes, helpin
 
 [Carolina Lee](https://github.com/CarolLee04)
 
+[Uwa Igbinedion](https://github.com/uwa00)
+
 ## Running the Application
 
 ### Prerequisites
