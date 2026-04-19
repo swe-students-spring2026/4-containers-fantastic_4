@@ -25,12 +25,18 @@ A web application that coverts audio recordings into written class notes, helpin
 
 ### Step 1: Machine Learning Client Setup
 
-1. Go to [assemblyai.com](https://www.assemblyai.com/) and log in with your Google account
-2. Once on the dashboard, click **API Keys** in the left sidebar
-3. Copy your API key
-4. In the `machine-learning-client/` folder, create a new file called `.env`
-5. Copy the contents of `.env.example` into `.env`
-6. Replace `your_assemblyai_api_key_here` with your actual API key
+1. In the `machine-learning-client/` folder, create a new file called `.env` by copying `.env.example`:
+   ```bash
+   cp machine-learning-client/.env.example machine-learning-client/.env
+   ```
+2. Get your **AssemblyAI** API key:
+   - Go to [AssemblyAI](https://www.assemblyai.com/) and sign in
+   - Click **API Keys** in the left sidebar and copy your key
+   - Replace `your_assemblyai_api_key_here` in `.env` with your key
+3. Get your **Google Gemini** API key:
+   - Go to [Google AI Studio](https://aistudio.google.com/) and sign in
+   - Click **Get API key**, then **Create API key**
+   - Replace `your_google_api_key_here` in `.env` with your key
 
 ### Step 2: Web App Setup
 

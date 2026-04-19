@@ -4,10 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+flask = "*"
 pymongo = "*"
 requests = "*"
 python-dotenv = "*"
 google-genai = "*"
+exceptiongroup = "*"
 
 [dev-packages]
 pylint = "*"
@@ -16,4 +18,3 @@ typing_extensions = "*"
 black = "*"
 pytest = "*"
 pytest-cov = "*"
-exceptiongroup = "*"
