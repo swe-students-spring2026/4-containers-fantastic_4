@@ -87,7 +87,7 @@ def register():
             flash("That username is already taken")
             return redirect(url_for("register"))
 
-        hashed = generate_password_hash(password, method='pbkdf2:sha256')
+        hashed = generate_password_hash(password, method="pbkdf2:sha256")
 
         users.insert_one({"username": username, "password": hashed})
 
