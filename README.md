@@ -16,7 +16,14 @@ A web application that coverts audio recordings into written class notes, helpin
 
 [Carolina Lee](https://github.com/CarolLee04)
 
-## Machine Learning Client Setup
+## Running the Application
+
+### Prerequisites
+
+- Install and run [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [Git](https://git-scm.com/)
+
+### Step 1: Machine Learning Client Setup
 
 1. Go to [assemblyai.com](https://www.assemblyai.com/) and log in with your Google account
 2. Once on the dashboard, click **API Keys** in the left sidebar
@@ -25,9 +32,36 @@ A web application that coverts audio recordings into written class notes, helpin
 5. Copy the contents of `.env.example` into `.env`
 6. Replace `your_assemblyai_api_key_here` with your actual API key
 
-## Web App Setup
+### Step 2: Web App Setup
 
 1. In the `web-app/` folder, create a new file called `.env`
 2. Copy the contents of `web-app/.env.example` into `.env`
 3. Set `SECRET_KEY`
 4. Update `MONGO_URI` and `ML_CLIENT_URL` if not on local defaults
+
+### Step 3: Build and Start All Containers
+
+```bash
+docker-compose up --build
+```
+
+This starts all three containers:
+- **Web App** at `http://localhost:5000`
+- **ML Client** at `http://localhost:5001`
+- **MongoDB** at `localhost:27017`
+
+### Step 4: Use the App
+
+Open `http://localhost:5000` in your browser, register an account, and start recording lectures.
+
+### Stopping the App
+
+```bash
+docker-compose down
+```
+
+To stop and remove all data:
+
+```bash
+docker-compose down -v
+```
