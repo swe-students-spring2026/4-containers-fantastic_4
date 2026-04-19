@@ -81,7 +81,7 @@ def register():
             flash("That username is already taken")
             return redirect(url_for("register"))
 
-        hashed = generate_password_hash(password)
+        hashed = generate_password_hash(password, method='pbkdf2:sha256')
 
         users.insert_one({"username": username, "password": hashed})
 
@@ -165,4 +165,4 @@ def summarize(note_id):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=3000, debug=True)
