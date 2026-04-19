@@ -338,10 +338,6 @@
             "markers": "python_version >= '3.9'",
             "version": "==3.0.3"
         },
-            "index": "pypi",
-            "markers": "python_version >= '3.9'",
-            "version": "==3.0.3"
-        },
         "mongomock": {
             "hashes": [
                 "sha256:32667b79066fabc12d4f17f16a8fd7361b5f4435208b3ba32c226e52212a8c30",
