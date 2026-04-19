@@ -4,6 +4,7 @@ from datetime import datetime
 import os
 
 from flask import Flask, request, jsonify
+from dotenv import load_dotenv
 from pymongo import MongoClient
 
 from transcriber import transcribe_audio
@@ -11,10 +12,20 @@ from summarizer import summarize_transcript
 
 app = Flask(__name__)
 
-MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
+# Environment variables from machine-learning-client/.env
+load_dotenv()
+MONGO_URI = os.environ.get("MONGO_URI") or os.environ.get(
+    "MONGODB_URI", "mongodb://localhost:27017/"
+)
 client = MongoClient(MONGO_URI)
 db = client["fantastic4"]
 class_notes = db["class_notes"]
+
+
+@app.route("/health", methods=["GET"])
+def health():
+    """Basic health endpoint for service readiness checks."""
+    return jsonify({"status": "ok"}), 200
 
 
 @app.route("/generate", methods=["POST"])
@@ -46,6 +57,12 @@ def generate():
             "note_id": str(result.inserted_id),
         }
     )
+
+
+@app.route("/process", methods=["POST"])
+def process():
+    """Alias for the original ML processing endpoint."""
+    return generate()
 
 
 if __name__ == "__main__":
