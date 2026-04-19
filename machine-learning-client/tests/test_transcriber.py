@@ -1,13 +1,9 @@
 """Tests for transcriber.py"""
 
-import os
 from unittest.mock import MagicMock, patch
 
-from dotenv import load_dotenv
-
+import pytest
 import transcriber
-
-load_dotenv()
 
 
 def make_mock_response(json_data):
