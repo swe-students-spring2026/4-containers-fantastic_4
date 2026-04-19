@@ -24,3 +24,10 @@ A web application that coverts audio recordings into written class notes, helpin
 4. In the `machine-learning-client/` folder, create a new file called `.env`
 5. Copy the contents of `.env.example` into `.env`
 6. Replace `your_assemblyai_api_key_here` with your actual API key
+
+## Web App Setup
+
+1. In the `web-app/` folder, create a new file called `.env`
+2. Copy the contents of `web-app/.env.example` into `.env`
+3. Set `SECRET_KEY`
+4. Update `MONGO_URI` and `ML_CLIENT_URL` if not on local defaults

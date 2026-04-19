@@ -17,7 +17,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import requests
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "your-secure-key"
+SECRET_KEY = os.environ.get("SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY environment variable is required")
+
+app.config["SECRET_KEY"] = SECRET_KEY
 ML_CLIENT_URL = os.environ.get("ML_CLIENT_URL", "http://localhost:5001")
 MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
 
@@ -98,6 +102,12 @@ def logout():
     """Log out the current user."""
     logout_user()
     return redirect(url_for("login"))
+
+
+@app.route("/favicon.ico")
+def favicon():
+    """Return an empty success response for browser favicon requests."""
+    return "", 204
 
 
 # route for loading home page and sending audio file to ml client
