@@ -149,23 +149,5 @@ def index():
     return render_template("index.html", notes=notes)
 
 
-# Generate AI summary
-@app.route("/summarize/<note_id>", methods=["POST"])
-@login_required
-def summarize(note_id):
-    """Generate an AI summary for an existing note."""
-
-    note = class_notes.find_one({"_id": ObjectId(note_id), "user_id": current_user.id})
-
-    if not note:
-        return jsonify({"error": "Note not found"}), 404
-
-    summary = "placeholder"
-
-    class_notes.update_one({"_id": ObjectId(note_id)}, {"$set": {"summary": summary}})
-
-    return jsonify({"summary": summary})
-
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000)
