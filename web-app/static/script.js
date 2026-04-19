@@ -389,11 +389,4 @@ document.addEventListener('DOMContentLoaded', () => {
     loadNotes();
     renderNotes();
 });
-            setTranscriptionStatus('Analysis failed.', true);
-        }
-    } catch (err) {
-        console.error(err);
-        setTranscriptionStatus('Connection Error.', true);
-    }
-}
 
