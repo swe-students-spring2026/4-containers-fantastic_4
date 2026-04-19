@@ -26,7 +26,7 @@
             <section class="recording-section">
                 <div class="recording-card">
                     <div class="recording-header">
-                        <h2>Live Transcription</h2>
+                        <h2>Record and Transcribe</h2>
                         <!-- <span class="status-indicator" id="statusIndicator">Ready for Recording</span> -->
                     </div>
 
@@ -40,14 +40,10 @@
                             <span class="btn-icon">⏹</span>
                             Stop Recording
                         </button>
-                        <button class="btn btn-secondary" id="clearBtn" onclick="clearTranscription()" disabled>
-                            Clear
-                        </button>
                     </div>
 
                     <!-- Live Transcription Display -->
                     <div class="transcription-display">
-                        <div class="transcription-label">Live Text:</div>
                         <div class="transcription-text" id="transcriptionText">
                             <p class="placeholder">Start recording to see transcription here...</p>
                         </div>
@@ -91,9 +87,6 @@
                         </button>
                         <button class="btn btn-small btn-secondary" id="downloadSummaryBtn" onclick="downloadSummary()">
                             Download
-                        </button>
-                        <button class="btn btn-small btn-clear" id="clearSummaryBtn" onclick="clearSummary()">
-                            Clear
                         </button>
                     </div>
                 </div>

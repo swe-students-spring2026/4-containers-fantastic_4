@@ -275,7 +275,7 @@ async function uploadAudio(blob) {
             const data = await response.json();
             localStorage.setItem('currentNoteId', data.note_id);
             displayTranscript(data.transcript);
-            displaySummary(data.summary);
+            sessionStorage.setItem('pendingSummary', data.summary);
             window.location.reload();
         } else {
             transcriptionText.innerHTML = '<p class="error">Analysis failed.</p>';
@@ -399,5 +399,10 @@ function displaySummary(summary) {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadNotes();
+    const pendingSummary = sessionStorage.getItem('pendingSummary');
+    if (pendingSummary) {
+        displaySummary(pendingSummary);
+        sessionStorage.removeItem('pendingSummary');
+    }
 });
 
