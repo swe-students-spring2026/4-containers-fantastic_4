@@ -148,5 +148,21 @@ def index():
     return render_template("index.html", notes=notes)
 
 
+@app.route("/notes/delete/<note_id>", methods=["POST"])
+@login_required
+def delete_note(note_id):
+    """Delete a single note belonging to the current user."""
+    class_notes.delete_one({"_id": ObjectId(note_id), "user_id": current_user.id})
+    return jsonify({"success": True})
+
+
+@app.route("/notes/delete-all", methods=["POST"])
+@login_required
+def delete_all_notes():
+    """Delete all notes for the current user."""
+    class_notes.delete_many({"user_id": current_user.id})
+    return jsonify({"success": True})
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
