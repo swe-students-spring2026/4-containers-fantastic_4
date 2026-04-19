@@ -1,3 +1,9 @@
+"""Placeholder test."""
+
+
+def test_placeholder():
+    """Placeholder test."""
+    assert True
 """tests for webapp flask routes"""
 
 import os

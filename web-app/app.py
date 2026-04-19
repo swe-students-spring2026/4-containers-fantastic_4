@@ -1,5 +1,6 @@
 """Web app for recording and displaying class notes."""
 
+from datetime import datetime
 import os
 
 from flask import Flask, render_template, redirect, url_for, request, flash, jsonify
@@ -87,7 +88,7 @@ def register():
             flash("That username is already taken")
             return redirect(url_for("register"))
 
-        hashed = generate_password_hash(password)
+        hashed = generate_password_hash(password, method='pbkdf2:sha256')
 
         users.insert_one({"username": username, "password": hashed})
 
@@ -146,3 +147,25 @@ def index():
     # send all past ml results
     notes = list(class_notes.find({"user_id": current_user.id}).sort("timestamp", -1))
     return render_template("index.html", notes=notes)
+
+
+# Generate AI summary
+@app.route("/summarize/<note_id>", methods=["POST"])
+@login_required
+def summarize(note_id):
+    """Generate an AI summary for an existing note."""
+
+    note = class_notes.find_one({"_id": ObjectId(note_id), "user_id": current_user.id})
+
+    if not note:
+        return jsonify({"error": "Note not found"}), 404
+
+    summary = "placeholder"
+
+    class_notes.update_one({"_id": ObjectId(note_id)}, {"$set": {"summary": summary}})
+
+    return jsonify({"summary": summary})
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=3000, debug=True)
