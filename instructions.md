@@ -57,7 +57,7 @@ The web app must be built using the Python [flask](https://palletsprojects.com/p
 
 - The server must store the data received in a database and provide a web dashboard for users to visualize the data.
 - The code must also be formatted in accordance with `PEP 8` using the `black` formatter and `pylint` linter to ensure correctness.
-- Unit tests using `pytest` and [pytest-flask](https://pytest-flask.readthedocs.io/en/latest/) must be written for the web app code that provide at least 80% code coverage of the server code.
+- Unit tests using `pytest` and [pytest-flask](https://pytest-flask.readthedocs.io/en/latest/) must be written for the web app code that provide at least -% code coverage of the server code.
 - The web app must have a Continuous Integration / (CI) workflow using [GitHub Actions](https://github.com/features/actions) that automatically builds, tests the updated subsystem every time a pull request is approved and code is merged into the `main` branch.
 - Like the other parts, the web app must run within its own Docker container.
 - Put all code for this subsystem within the `web-app` subdirectory of this repository.
