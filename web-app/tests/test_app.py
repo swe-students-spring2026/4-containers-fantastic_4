@@ -97,3 +97,31 @@ def test_audio_upload_flow(mock_ml_post):
 
         assert response.status_code == 200
         assert response.get_json()["transcript"] == "this is a test transcript"
+
+def test_index_page_renders():
+    """Test that index page loads and contains expected HTML elements"""
+    client, mock_users, _ = get_test_context()
+    
+    with patch("app.users", mock_users):
+        client.post("/register", data={"username": "testuser3", "password": "123"})
+        client.post("/login", data={"username": "testuser3", "password": "123"})
+        
+        response = client.get("/")
+        
+        assert response.status_code == 200
+        assert b"startBtn" in response.data
+        assert b"stopBtn" in response.data
+        assert b"notesList" in response.data 
+        assert b"summaryDisplay" in response.data
+
+def test_css_files_loaded():
+    """Test that CSS files are served correctly"""
+    client, mock_users, _ = get_test_context()
+    
+    with patch("app.users", mock_users):
+        client.post("/register", data={"username": "testuser4", "password": "123"})
+        client.post("/login", data={"username": "testuser4", "password": "123"})
+        
+        response = client.get("/static/css/styles.css")
+        assert response.status_code == 200
+        assert b"css" in response.content_type.lower()

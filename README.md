@@ -68,8 +68,4 @@ Open `http://localhost:5000` in your browser, register an account, and start rec
 docker-compose down
 ```
 
-To stop and remove all data:
-
-```bash
-docker-compose down -v
-```
+To stop and remove al
