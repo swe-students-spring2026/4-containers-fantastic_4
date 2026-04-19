@@ -14,6 +14,37 @@ const notesList = document.getElementById('notesList');
 
 let notes = [];
 
+function setTranscriptionStatus(message, isError = false) {
+    if (!transcriptionText) {
+        return;
+    }
+
+    transcriptionText.innerHTML = isError
+        ? `<p class="error">${message}</p>`
+        : `<p class="status">${message}</p>`;
+}
+
+function updateTimerDisplay() {
+    if (!recordingTime) {
+        return;
+    }
+
+    const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const secs = String(seconds % 60).padStart(2, '0');
+    recordingTime.textContent = `${mins}:${secs}`;
+}
+
+function startTimer() {
+    clearInterval(timerInterval);
+    seconds = 0;
+    updateTimerDisplay();
+
+    timerInterval = setInterval(() => {
+        seconds += 1;
+        updateTimerDisplay();
+    }, 1000);
+}
+
 // //called when start recording button is pressed
 async function startRecording() {
     audioChunks = [];
@@ -32,19 +63,34 @@ async function startRecording() {
 
     mediaRecorder.start();
     
-    startBtn.disabled = true;
-    stopBtn.disabled = false;
+    if (startBtn) {
+        startBtn.disabled = true;
+    }
+    if (stopBtn) {
+        stopBtn.disabled = false;
+    }
+
     startTimer();
-    transcriptionText.innerHTML = '<p class="status">Recording in progress...</p>';
+    setTranscriptionStatus('Recording in progress...');
 }
 
 // called when stop recording button is pressed
 function stopRecording() {
+    if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+        return;
+    }
+
     mediaRecorder.stop();
     clearInterval(timerInterval);
     recordingTime.textContent = '00:00';
     startBtn.disabled = false;
     stopBtn.disabled = true;
+    if (startBtn) {
+        startBtn.disabled = false;
+    }
+    if (stopBtn) {
+        stopBtn.disabled = true;
+    }
 }
 
 // timer functionality
@@ -199,7 +245,7 @@ function escapeHtml(unsafe) {
 async function uploadAudio(blob) {
     const formData = new FormData();
     formData.append('audio_file', blob, 'lecture.wav');
-    transcriptionText.innerHTML = '<p class="status">ML Client is analyzing audio...</p>';
+    setTranscriptionStatus('ML Client is analyzing audio...');
 
     // summary loading state
     summaryLoading.style.display = 'flex';
@@ -343,3 +389,11 @@ document.addEventListener('DOMContentLoaded', () => {
     loadNotes();
     renderNotes();
 });
+            setTranscriptionStatus('Analysis failed.', true);
+        }
+    } catch (err) {
+        console.error(err);
+        setTranscriptionStatus('Connection Error.', true);
+    }
+}
+

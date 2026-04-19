@@ -1,6 +1,7 @@
 """Web app for recording and displaying class notes."""
 
 from datetime import datetime
+import os
 
 from flask import Flask, render_template, redirect, url_for, request, flash, jsonify
 from flask_login import (
@@ -17,11 +18,17 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import requests
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "your-secure-key"
+SECRET_KEY = os.environ.get("SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY environment variable is required")
+
+app.config["SECRET_KEY"] = SECRET_KEY
+ML_CLIENT_URL = os.environ.get("ML_CLIENT_URL", "http://localhost:5001")
+MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
 
 # db setup
 # has to be changed after we put this inside a container
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient(MONGO_URI)
 db = client["fantastic4"]
 # stores users and passwords
 users = db["users"]
@@ -98,6 +105,12 @@ def logout():
     return redirect(url_for("login"))
 
 
+@app.route("/favicon.ico")
+def favicon():
+    """Return an empty success response for browser favicon requests."""
+    return "", 204
+
+
 # route for loading home page and sending audio file to ml client
 @app.route("/", methods=["GET", "POST"])
 @login_required
@@ -112,27 +125,17 @@ def index():
             files = {"file": (file.filename, file.stream, "audio/wav")}
             payload = {"user_id": current_user.id}
 
-            # sends file to ml client api - won't work for now bc ml client api doesn't exist yet
+            # Send recorded audio to ML client for transcription and summary
             ml_response = requests.post(
-                # we will need to change this once we put this in a container
-                "http://localhost:5001/process",
+                f"{ML_CLIENT_URL}/generate",
                 files=files,
                 data=payload,
                 timeout=120,
             )
-
-            ml_data = ml_response.json()
-
-            result = class_notes.insert_one(
-                {
-                    "user_id": current_user.id,
-                    "transcript": ml_data.get("transcript", ""),
-                    "summary": None,
-                    "timestamp": datetime.utcnow(),
-                }
-            )
-
-            ml_data["note_id"] = str(result.inserted_id)
+            try:
+                ml_data = ml_response.json()
+            except ValueError:
+                return jsonify({"error": "ML client returned invalid JSON"}), 502
 
             return jsonify(ml_data), ml_response.status_code
 
