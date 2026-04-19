@@ -1,0 +1,34 @@
+name: machine-learning-client-ci
+on: [push, pull_request]
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        if: ${{ hashFiles('machine-learning-client/**/*.py') != '' }}
+        run: |
+          cd machine-learning-client
+          python -m pip install --upgrade pip
+          python -m pip install pipenv
+          pipenv sync --dev --python $(which python)
+      - name: Lint with pylint
+        if: ${{ hashFiles('machine-learning-client/**/*.py') != '' }}
+        run: |
+          cd machine-learning-client
+          pipenv run pylint **/*.py
+      - name: Format with black
+        if: ${{ hashFiles('machine-learning-client/**/*.py') != '' }}
+        run: |
+          cd machine-learning-client
+          pipenv run black --diff --check .
+      - name: Run tests with coverage
+        if: ${{ hashFiles('machine-learning-client/**/*.py') != '' }}
+        run: |
+          cd machine-learning-client
+          PYTHONPATH=. pipenv run pytest --cov=. --cov-report=term-missing tests/
