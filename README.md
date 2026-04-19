@@ -1,4 +1,4 @@
-![Web App CI](https://github.com/nyu-software-engineering/containerized-app-exercise/actions/workflows/web-app-ci.yml/badge.svg) ![Machine Learning Client CI](https://github.com/nyu-software-engineering/containerized-app-exercise/actions/workflows/machine-learning-client-ci.yml/badge.svg)
+![Web App CI](https://github.com/swe-students-spring2026/4-containers-fantastic_4/actions/workflows/web-app-ci.yml/badge.svg) ![Machine Learning Client CI](https://github.com/swe-students-spring2026/4-containers-fantastic_4/actions/workflows/machine-learning-client-ci.yml/badge.svg)
 
 # Containerized App Exercise
 
