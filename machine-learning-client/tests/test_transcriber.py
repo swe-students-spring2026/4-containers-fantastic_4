@@ -87,4 +87,3 @@ def test_transcriber_processing(mock_post, mock_get, mock_sleep):
 
     assert result == "final transcript"
     assert mock_sleep.call_count == 1
-
